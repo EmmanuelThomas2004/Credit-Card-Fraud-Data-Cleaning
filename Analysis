@@ -1,0 +1,38 @@
+import pandas as pd
+from pathlib import Path
+folder = Path(r"C:\Users\emman\Downloads\financal analyst")
+pd.set_option('display.max_columns', None)
+transaction_data = pd.read_csv(folder / "fraudTrain.csv")
+print("Total rows and columns:",transaction_data.shape)
+print("Column names",transaction_data.columns)
+print("datatypes of transaction columns:",transaction_data.dtypes)
+print("statistical analysis",transaction_data.describe())
+print("data information",transaction_data.info())
+transaction_data["trans_date_trans_time"] = pd.to_datetime(transaction_data["trans_date_trans_time"])
+print("datatypes of transaction columns:",transaction_data.dtypes)
+transaction_data  = transaction_data.rename(columns={"trans_date_trans_time" : "transaction_datetime",
+                                                     "cc_num":"card_number",
+                                                     "merchant": "merchant_name",
+                                                     "category": "transaction_category",
+                                                     "amt": "transaction_amount",
+                                                     "first": "customer_first_name",
+                                                     "last": "customer_last_name",
+                                                     "gender": "customer_gender",
+                                                     "street": "customer_street",
+                                                     "city": "customer_city",
+                                                     "state": "customer_state",
+                                                     "zip": "customer_zip_code",
+                                                     "lat": "customer_latitude",
+                                                     "long": "customer_longitude",
+                                                     "city_pop": "city_population",
+                                                     "job": "customer_job",
+                                                     "dob": "customer_date_of_birth",
+                                                     "trans_num": "transaction_id",
+                                                     "unix_time": "transaction_unix_timestamp",
+                                                     "merch_lat": "merchant_latitude",
+                                                     "merch_long": "merchant_longitude",
+                                                     "is_fraud": "fraud_flag"
+                                                     })
+print("Column names",transaction_data.columns)
+print("Total Null Values",transaction_data.isnull().sum())
+print("Total Duplicates",transaction_data.duplicated().sum())
